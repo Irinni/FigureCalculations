@@ -22,6 +22,11 @@
             {
                 if (!_area.HasValue)
                     _area = Math.PI * Math.Pow(Radius, 2);
+
+                if (double.IsInfinity(_area.Value))
+                {
+                    throw new OverflowException();
+                }
                 return _area.Value;
             }
         }

@@ -1,6 +1,6 @@
 ﻿namespace FigureCalculations
 {
-    interface IFigure
+    public interface IFigure
     {
         double Area { get; }
     }

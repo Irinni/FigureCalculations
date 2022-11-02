@@ -40,6 +40,10 @@ namespace FigureCalculations.Figures
                         _area = Math.Sqrt(p * (p - A) * (p - B) * (p - C));
                     }
                 }
+                if (double.IsInfinity(_area.Value))
+                {
+                    throw new OverflowException();
+                }
                 return _area.Value;
             }
         }
@@ -60,7 +64,7 @@ namespace FigureCalculations.Figures
         {
             if (a <= 0 || b <= 0 || c <= 0)
                 throw new ArgumentException(errorNotPositiveValueParamsMessage);
-            if ((a + b < c) || (a + c < b) || (b + c < a))
+            if ((a + b <= c) || (a + c <= b) || (b + c <= a))
                 throw new ArgumentException(errorIsNotTriangleMessage);
 
             A = a;
