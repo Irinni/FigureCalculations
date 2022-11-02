@@ -42,11 +42,28 @@ namespace FigureCalculations.Tests
             Action actual = () => new Triangle(a, b, c);
             Assert.Throws<ArgumentException>(actual);
         }
+
         [Fact]
         public void TriangleAreaCalculation_OverflowExseption()
         {
             var triangle = new Triangle(double.MaxValue, double.MaxValue, double.MaxValue);
             Assert.Throws<OverflowException>(() => { var result = triangle.Area; });
+        }
+
+        public static IEnumerable<object[]> RightAnglesData =>
+           new List<object[]>
+           {
+                new object[] {new Triangle(3, 4, 5), 6.0},
+                new object[] {new Triangle(3, 5, 4), 6.0},
+                new object[] {new Triangle(5, 4, 3), 6.0},
+           };
+
+        [Theory]
+        [MemberData(nameof(RightAnglesData))]
+        public void TriangleAreaCalculation_RightAngle_ExpectedArea(Triangle triangle, double expectedArea)
+        {
+            Assert.True(triangle.IsRightAngle);
+            Assert.Equal(expectedArea, triangle.Area);
         }
     }
 }
